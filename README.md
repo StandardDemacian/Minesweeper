@@ -39,19 +39,19 @@ As a User I want...
 Psuedocode
 -------------------
 
-- to see a 8x8 grid of clickable buttons 
+#### To see a 8x8 grid of clickable buttons 
 
 Create a 'div' that will hold the board and have the contents be a 2D array
 
-- to be able to click a square and see either a bomb or a number
+#### To be able to click a square and see either a bomb or a number
 
-Iterate through the board array to make them into tiles and append the tiles onto the board
+Have a function running off of a click event listener that runs a check whether the object is a bomb and checks the number of bombs surrounding 
 
-- to be able to click a button to start or reset the game
+#### To be able to click a button to start or reset the game
 
 Have a button at the end of the javascript that initializes the function 'runGame'
 
-- to be able to tell how many bombs are touching the space I clicked by how the number that appears on it
+#### To be able to tell how many bombs are touching the space I clicked by how the number that appears on it
 
 Create a  function that uses booleans to check the surrounding array 
 
@@ -59,13 +59,15 @@ First checking top three, then left and right, lastly bottom three
 
 Set innerText of minesFound to number of mines found
 
-- to be able to flag a bomb to 'diffuse' it
+#### To be able to flag a bomb to 'diffuse' it
 
-- the game to auto clear large areas without bombs
+Create an event listener on each tile that checks for a right click and places a flag instead of revealing the tile
 
+#### The game to auto clear large areas without bombs
 
+Use recursion on the minesFound function to have the function run on adjacent safe blocks until a bomb is found
 
-- to be alerted with a message when I have won or lost
+#### To be alerted with a message when I have won or lost
 
 Have an IF statement the number of bombs 'flagged' against the total number 
 
@@ -73,7 +75,7 @@ IF all bombs have been flagged reveal board and display "You win" in an alert
 
 IF any bomb has been reveal board and display "You lose" in an alert
 
-- see a revealed board after have I won or lost
+#### See a revealed board after have I won or lost
 
 upon completion of game via win or loss have board div switch off of hidden 
 
