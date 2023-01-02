@@ -39,45 +39,57 @@ As a User I want...
 Psuedocode
 -------------------
 
-#### To see a 8x8 grid of clickable buttons 
+### To see a 8x8 grid of clickable buttons 
 
-Create a 'div' that will hold the board and have the contents be a 2D array
+    Create a 'div' that will hold the board and have the contents be a 2D array
 
-#### To be able to click a square and see either a bomb or a number
+### To be able to click a square and see either a bomb or a number
 
-Have a function running off of a click event listener that runs a check whether the object is a bomb and checks the number of bombs surrounding 
+    Have a function running off of a click event listener that runs a check whether the object is a bomb and checks the number of bombs surrounding 
 
-#### To be able to click a button to start or reset the game
+    onClick() => {
+        IF bomb = true 
+        return GameOVER()
 
-Have a button at the end of the javascript that initializes the function 'runGame'
+        IF bomb = false
+        return bombsAdj()
+    }
 
-#### To be able to tell how many bombs are touching the space I clicked by how the number that appears on it
+### To be able to click a button to start or reset the game
 
-Create a  function that uses booleans to check the surrounding array 
+    Have a button at the end of the javascript that initializes the function 'runGame'
 
-First checking top three, then left and right, lastly bottom three
+### To be able to tell how many bombs are touching the space I clicked by how the number that appears on it
 
-Set innerText of minesFound to number of mines found
+    Create a  function that uses booleans to check the surrounding array 
 
-#### To be able to flag a bomb to 'diffuse' it
+    First checking top three, then left and right, lastly bottom three
 
-Create an event listener on each tile that checks for a right click and places a flag instead of revealing the tile
+    Set innerText of minesFound to number of mines found
 
-#### The game to auto clear large areas without bombs
+### To be able to flag a bomb to 'diffuse' it
 
-Use recursion on the minesFound function to have the function run on adjacent safe blocks until a bomb is found
+    Create an event listener on each tile that checks for a right click and places a flag instead of revealing the tile
 
-#### To be alerted with a message when I have won or lost
+    onContextMenu() => {
+        change tile status to flag
+    }
 
-Have an IF statement the number of bombs 'flagged' against the total number 
+### The game to auto clear large areas without bombs
 
-IF all bombs have been flagged reveal board and display "You win" in an alert
+    Use recursion on the minesFound function to have the function run on adjacent safe blocks until a bomb is found
 
-IF any bomb has been reveal board and display "You lose" in an alert
+### To be alerted with a message when I have won or lost
 
-#### See a revealed board after have I won or lost
+    Have an IF statement the number of bombs 'flagged' against the total number 
 
-upon completion of game via win or loss have board div switch off of hidden 
+    IF all bombs have been flagged reveal board and display "You win" in an alert
+
+    IF any bomb has been reveal board and display "You lose" in an alert
+
+### See a revealed board after have I won or lost
+
+    Upon completion of game via win or loss have board div switch off of hidden 
 
 Version 2 User Stories
 --------------------
