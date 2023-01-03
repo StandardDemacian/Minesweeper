@@ -13,7 +13,7 @@ Wireframe
 
 Here is what the MVP should look like on a very basic level. 
 
-![Minesweeper](Minesweeper WIreframe.png)
+![Minesweeper](Minesweeper_wireframe.png)
 
 MVP User Stories 
 ----------------------
