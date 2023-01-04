@@ -14,7 +14,7 @@ let minesCount = 8
 let minesLocation = []
 
 let tilesClicked = 0
-
+let minesFound = 0
 let gameOver = false
 
 
@@ -44,7 +44,10 @@ function gameStart () {
         let tile = document.createElement("div")
         tile.id = r.toString() + "-" + c.toString()
         tile.addEventListener("contextmenu", placeFlag)
-        tile.addEventListener("click", checkTile)
+        tile.addEventListener("click", clickTile)
+        tile.addEventListener('contextmenu', function (e) { //removes that annoying menu while right clicking on the board
+            e.preventDefault();
+        })
         gameBoard.append(tile)
         row.push(tile)
         }
@@ -59,19 +62,29 @@ function placeFlag () {
  tile.style.backgroundColor = `blue`
 }
 
-function checkTile () {
+
+function clickTile () {
     let tile = this
-    if (tile.innerHTML= `<i class="fa-solid fa-flag"></i>`){
-         tile.innerHTML = ""
-         tile.style.backgroundColor = "lightgray"
-        }
-    if (minesLocation.includes(tile.id)){
+    // if (tile.innerHTML = `<i class="fa-solid fa-flag"></i>`){
+    //     tile.innerHTML = ""
+    //     // tile.style.backgroundColor = "lightgray"
+    //     }
+    if(minesLocation.includes(tile.id)) {
         alert("KABOOM")
         revealMines()
         return
     }
+    
+    let coordinates = tile.id.split("-") // takes in tile.id and removes the "-" and converts it to a an array
+    let r = parseInt(coordinates[0])
+    let c = parseInt(coordinates[1])
+    console.log(r,c)
+    checkMine(r,c)
 }
-//Reveal Mines Function
+
+
+// //Reveal Mines Function
+
 function revealMines() {
     for(let r = 0; r < rows; r++) {
         for (let c = 0; c < columns; c++) {
@@ -84,5 +97,59 @@ function revealMines() {
     }
 }
 
-
  //Make check Mine function
+
+ function checkMine(r,c) {
+
+    if (r < 0 || r >= rows || c  < 0 || c >= columns) {
+        return
+    }
+// this is to prevent my checkTile from going infinite
+    if(board[r][c].classList.contains("tile-clicked")) {
+        return
+    }
+    
+    board[r][c].classList.add("tile-clicked")
+    tilesClicked += 1
+//Checks for mines in spaces, above, below and side to side of "clicked" tile
+    let minesFound = 0 
+   minesFound += checkTile(r-1 , c-1)
+   minesFound += checkTile(r-1 , c)
+   minesFound += checkTile(r-1, c+1)
+   minesFound += checkTile(r , c-1)
+   minesFound += checkTile(r , c+1)
+   minesFound += checkTile(r+1 , c-1)
+   minesFound += checkTile(r+1 , c)
+   minesFound += checkTile(r+1 , c+1)
+  
+   if(minesFound > 0) {
+    board[r][c].innerText = minesFound
+    board[r][c].classList.add("x" + minesFound.toString())
+   }
+   else{
+   checkMine(r-1,c-1)
+   checkMine(r-1,c)
+   checkMine(r-1,c+1)
+   checkMine(r,c-1)
+   checkMine(r,c+1)
+   checkMine(r+1,c-1)
+   checkMine(r+1,c)
+   checkMine(r+1,c+1)
+   }
+   //win condition met (when area of space minus the mines total equals the "clicked" tiles)
+   if(tilesClicked == rows*columns - minesCount) {
+    alert("You Win")
+   }
+ }
+
+//Check tile function goes here
+//Checks to makes sure area clicked is on the board
+ function checkTile(r,c) {
+    if (r < 0 || r >= rows || c < 0 || c >= columns) {
+        return 0
+    }
+    if (minesLocation.includes(r.toString() + "-" + c.toString())) {
+        return 1
+    }
+    return 0
+ }
