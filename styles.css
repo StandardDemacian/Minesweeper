@@ -8,18 +8,19 @@ body {
     align-content: space-between;
     
 }
-#start {
+#restart {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 
-    height: 30px;
+    height: 40px;
     width: 100px;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     background-color:lightgray;
     font-weight: bold;
     border-radius: 40%;
+    /* visibility: hidden; */
 }
 #board {
     width: 400px;

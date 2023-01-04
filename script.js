@@ -3,7 +3,7 @@
 
 // <i class="fa-solid fa-flag"></i> */
 
-const startButton = document.getElementById("start")
+const restartButton = document.getElementById("restart")
 const gameBoard = document.getElementById("board")
 
 let board = []
@@ -18,7 +18,9 @@ let minesFound = 0
 let gameOver = false
 
 
+
 window.onload = function() {
+    restartButton.style.visibility = 'hidden'
     gameStart()
 }
 function setMines() {
@@ -37,7 +39,7 @@ function setMines() {
 
 function gameStart () {
     setMines() 
-
+    
     for (let r = 0; r < rows; r++){
     let row = []
     for (let c =0; c < columns; c++){
@@ -72,13 +74,14 @@ function clickTile () {
     if(minesLocation.includes(tile.id)) {
         alert("KABOOM")
         revealMines()
+        gameOver=true
+        endGame()
         return
     }
     
     let coordinates = tile.id.split("-") // takes in tile.id and removes the "-" and converts it to a an array
     let r = parseInt(coordinates[0])
     let c = parseInt(coordinates[1])
-    console.log(r,c)
     checkMine(r,c)
 }
 
@@ -139,6 +142,8 @@ function revealMines() {
    //win condition met (when area of space minus the mines total equals the "clicked" tiles)
    if(tilesClicked == rows*columns - minesCount) {
     alert("You Win")
+    gameOver=true
+    endGame()
    }
  }
 
@@ -152,4 +157,15 @@ function revealMines() {
         return 1
     }
     return 0
+ }
+
+ //Create End Game function that unhides reset button(which will have a listener to rerun gamesetup)
+ // it needs to reveal the board and give the ability to reset the game
+
+ function endGame() {
+    if(gameOver == true) {
+        console.log("thats all folks")
+        restartButton.style.visibility = "visible"
+    }
+    
  }
