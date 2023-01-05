@@ -1,28 +1,30 @@
 
-/* <i class="fa-solid fa-land-mine-on"></i>
-
-// <i class="fa-solid fa-flag"></i> */
 
 const restartButton = document.getElementById("restart")
 const gameBoard = document.getElementById("board")
+
 
 let board = []
 let rows = 8
 let columns = 8 
 
-let minesCount = 8
+let minesCount = 6
 let minesLocation = []
 
 let tilesClicked = 0
 let minesFound = 0
 let gameOver = false
+let flag = false
 
 
 
-window.onload = function() {
+function initilize(){
     restartButton.style.visibility = 'hidden'
     gameStart()
 }
+
+initilize()
+
 function setMines() {
      let minesLeft = minesCount
          while(minesLeft > 0) {
@@ -46,7 +48,8 @@ function gameStart () {
         let tile = document.createElement("div")
         tile.id = r.toString() + "-" + c.toString()
         tile.addEventListener("contextmenu", placeFlag)
-        tile.addEventListener("click", clickTile)
+        // tile.addEventListener("contextmenu", removeFlag)
+        tile.addEventListener("click", clickTile) 
         tile.addEventListener('contextmenu', function (e) { //removes that annoying menu while right clicking on the board
             e.preventDefault();
         })
@@ -55,22 +58,37 @@ function gameStart () {
         }
         board.push(row)
     }
-    console.log(board)
 }
-console.log(minesLocation)
+
+function removeFlag() {
+    let tile = this
+    if( tile.innerHTML = `<i class="fa-solid fa-flag"></i>`){
+        tile.innerHTML = ""
+        tile.style.backgroundColor = "lightgray"
+    }
+    else {
+        return
+    }
+
+}
+//placing flag function that is called in the tile event listener
+
 function placeFlag () {
+ flag = true
  let tile = this
  tile.innerHTML = `<i class="fa-solid fa-flag"></i>`
- tile.style.backgroundColor = `blue`
+ tile.style.backgroundColor = "blue"
+ tile.classList.add("tile-flagged")
+ tile.classList.add("tile-clicked")
+ 
 }
 
 
 function clickTile () {
     let tile = this
-    // if (tile.innerHTML = `<i class="fa-solid fa-flag"></i>`){
-    //     tile.innerHTML = ""
-    //     // tile.style.backgroundColor = "lightgray"
-    //     }
+    if (tile.classList.contains("tile-flagged"))
+    {return}
+        
     if(minesLocation.includes(tile.id)) {
         alert("KABOOM")
         revealMines()
@@ -159,6 +177,11 @@ function revealMines() {
     return 0
  }
 
+
+function reloadScreen() {
+    window.location.reload()
+}
+
  //Create End Game function that unhides reset button(which will have a listener to rerun gamesetup)
  // it needs to reveal the board and give the ability to reset the game
 
@@ -166,6 +189,10 @@ function revealMines() {
     if(gameOver == true) {
         console.log("thats all folks")
         restartButton.style.visibility = "visible"
+        restartButton.addEventListener("click", reloadScreen)
+        
+        
     }
     
  }
+
