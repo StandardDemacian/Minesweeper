@@ -8,7 +8,7 @@ let board = []
 let rows = 8
 let columns = 8 
 
-let minesCount = 6
+let minesCount = 8
 let minesLocation = []
 
 let tilesClicked = 0
@@ -48,7 +48,6 @@ function gameStart () {
         let tile = document.createElement("div")
         tile.id = r.toString() + "-" + c.toString()
         tile.addEventListener("contextmenu", placeFlag)
-        // tile.addEventListener("contextmenu", removeFlag)
         tile.addEventListener("click", clickTile) 
         tile.addEventListener('contextmenu', function (e) { //removes that annoying menu while right clicking on the board
             e.preventDefault();
@@ -60,17 +59,7 @@ function gameStart () {
     }
 }
 
-function removeFlag() {
-    let tile = this
-    if( tile.innerHTML = `<i class="fa-solid fa-flag"></i>`){
-        tile.innerHTML = ""
-        tile.style.backgroundColor = "lightgray"
-    }
-    else {
-        return
-    }
 
-}
 //placing flag function that is called in the tile event listener
 
 function placeFlag () {
@@ -125,23 +114,24 @@ function revealMines() {
     if (r < 0 || r >= rows || c  < 0 || c >= columns) {
         return
     }
-// this is to prevent my checkTile from going infinite
+// this is to prevent my checkTile from rechecking tiles
     if(board[r][c].classList.contains("tile-clicked")) {
         return
     }
     
     board[r][c].classList.add("tile-clicked")
     tilesClicked += 1
+
 //Checks for mines in spaces, above, below and side to side of "clicked" tile
     let minesFound = 0 
-   minesFound += checkTile(r-1 , c-1)
-   minesFound += checkTile(r-1 , c)
-   minesFound += checkTile(r-1, c+1)
-   minesFound += checkTile(r , c-1)
-   minesFound += checkTile(r , c+1)
-   minesFound += checkTile(r+1 , c-1)
-   minesFound += checkTile(r+1 , c)
-   minesFound += checkTile(r+1 , c+1)
+   minesFound += checkSquare(r-1 , c-1)
+   minesFound += checkSquare(r-1 , c)
+   minesFound += checkSquare(r-1, c+1)
+   minesFound += checkSquare(r , c-1)
+   minesFound += checkSquare(r , c+1)
+   minesFound += checkSquare(r+1 , c-1)
+   minesFound += checkSquare(r+1 , c)
+   minesFound += checkSquare(r+1 , c+1)
   
    if(minesFound > 0) {
     board[r][c].innerText = minesFound
@@ -167,7 +157,7 @@ function revealMines() {
 
 //Check tile function goes here
 //Checks to makes sure area clicked is on the board
- function checkTile(r,c) {
+ function checkSquare(r,c) {
     if (r < 0 || r >= rows || c < 0 || c >= columns) {
         return 0
     }
@@ -187,7 +177,7 @@ function reloadScreen() {
 
  function endGame() {
     if(gameOver == true) {
-        console.log("thats all folks")
+        
         restartButton.style.visibility = "visible"
         restartButton.addEventListener("click", reloadScreen)
         
