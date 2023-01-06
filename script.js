@@ -167,7 +167,7 @@ function revealMines() {
    }
    //win condition met (when area of space minus the mines total equals the "clicked" tiles)
    if(tilesClicked == rows*columns - minesCount) {
-    title.innerText = "Congradulations! You WIN!"
+    title.innerText = "Congratulations! You WIN!"
     gameOver=true
     endGame()
    }
