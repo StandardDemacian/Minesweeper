@@ -16,7 +16,7 @@ The following tehnology was used to create this version of Minesweeper
 
 ## How to play
 
-To play the game for yourself you can use this (link)
+To play the game for yourself you can use this https://standarddemacian.github.io/Minesweeper/
 
 When you click on a tile it will display either a number or a mine. The number indicates how many mines are touching that tile. 
 

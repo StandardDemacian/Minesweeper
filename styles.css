@@ -45,6 +45,13 @@ body {
     
 }
 
+#timer {
+    background-color: black;
+    color:red;
+    border-style: dotted;
+    border-color: lightgrey;
+    
+}
 
 
 #board div {

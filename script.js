@@ -3,6 +3,7 @@
 const restartButton = document.getElementById("restart")
 const gameBoard = document.getElementById("board")
 const title = document.getElementById("title")
+const clock = document.getElementById("timer")
 
 
 let board = []
@@ -15,8 +16,10 @@ let minesLocation = []
 let tilesClicked = 0 //will be how we check win condition
 let minesFound = 0
 let gameOver = false
-let flag = false
 
+
+let seconds = 0
+let timer = setInterval(upTimer, 1000)
 
 
 function initilize(){
@@ -60,11 +63,25 @@ function gameStart () {
     }
 }
 
+function upTimer() {
+    
+     ++seconds
+    let hour = Math.floor(seconds / 3600)
+    let minute = Math.floor((seconds - hour * 3600) / 60)
+    let updSecond = seconds - (hour * 3600 + minute * 60)
+    clock.innerHTML = hour + ":" + minute + ":" + updSecond
+    if(gameOver=true){
+        return 
+    }
+
+    
+    
+}
 
 //placing flag function that is called in the tile event listener
 
 function placeFlag () {
-    
+
     let tile = this
     tile.innerHTML = `<i class="fa-solid fa-flag"></i>`
     tile.style.backgroundColor = "blue"
@@ -178,10 +195,10 @@ function reloadScreen() {
 
  function endGame() {
     if(gameOver == true) {
-        
+        clearInterval(timer)
         restartButton.style.visibility = "visible"
         restartButton.addEventListener("click", reloadScreen)
-        
+       
         
     }
     
