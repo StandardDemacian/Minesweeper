@@ -3,7 +3,7 @@ Minesweeper
 
 Minesweeper is a quick and fun puzzle game where you try to click all the spaces that don't have mines in them!
 
-![Minesweeper](Minesweeper_game.png)
+![Minesweeper](Minesweeper.png)
 
 
 ## Technology Used
