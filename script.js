@@ -2,6 +2,7 @@
 
 const restartButton = document.getElementById("restart")
 const gameBoard = document.getElementById("board")
+const title = document.getElementById("title")
 
 
 let board = []
@@ -11,7 +12,7 @@ let columns = 8
 let minesCount = 8
 let minesLocation = []
 
-let tilesClicked = 0
+let tilesClicked = 0 //will be how we check win condition
 let minesFound = 0
 let gameOver = false
 let flag = false
@@ -19,7 +20,7 @@ let flag = false
 
 
 function initilize(){
-    restartButton.style.visibility = 'hidden'
+    restartButton.style.visibility = "hidden"
     gameStart()
 }
 
@@ -49,7 +50,7 @@ function gameStart () {
         tile.id = r.toString() + "-" + c.toString()
         tile.addEventListener("contextmenu", placeFlag)
         tile.addEventListener("click", clickTile) 
-        tile.addEventListener('contextmenu', function (e) { //removes that annoying menu while right clicking on the board
+        tile.addEventListener("contextmenu", function (e) { //removes that annoying menu while right clicking on the board
             e.preventDefault();
         })
         gameBoard.append(tile)
@@ -63,13 +64,13 @@ function gameStart () {
 //placing flag function that is called in the tile event listener
 
 function placeFlag () {
- flag = true
- let tile = this
- tile.innerHTML = `<i class="fa-solid fa-flag"></i>`
- tile.style.backgroundColor = "blue"
- tile.classList.add("tile-flagged")
- tile.classList.add("tile-clicked")
- 
+    
+    let tile = this
+    tile.innerHTML = `<i class="fa-solid fa-flag"></i>`
+    tile.style.backgroundColor = "blue"
+    tile.classList.add("tile-flagged")
+    tile.classList.add("tile-clicked")
+
 }
 
 
@@ -79,14 +80,14 @@ function clickTile () {
     {return}
         
     if(minesLocation.includes(tile.id)) {
-        alert("KABOOM")
+        title.innerText = "Kaboom! You've lost!"
         revealMines()
         gameOver=true
         endGame()
         return
     }
     
-    let coordinates = tile.id.split("-") // takes in tile.id and removes the "-" and converts it to a an array
+    let coordinates = tile.id.split("-") // takes in tile.id and removes the "-" and converts it to a an array that can be parseInt 
     let r = parseInt(coordinates[0])
     let c = parseInt(coordinates[1])
     checkMine(r,c)
@@ -138,18 +139,18 @@ function revealMines() {
     board[r][c].classList.add("x" + minesFound.toString())
    }
    else{
-   checkMine(r-1,c-1)
-   checkMine(r-1,c)
-   checkMine(r-1,c+1)
-   checkMine(r,c-1)
-   checkMine(r,c+1)
-   checkMine(r+1,c-1)
-   checkMine(r+1,c)
-   checkMine(r+1,c+1)
+    checkMine(r-1,c-1)
+    checkMine(r-1,c)
+    checkMine(r-1,c+1)
+    checkMine(r,c-1)
+    checkMine(r,c+1)
+    checkMine(r+1,c-1)
+    checkMine(r+1,c)
+    checkMine(r+1,c+1)
    }
    //win condition met (when area of space minus the mines total equals the "clicked" tiles)
    if(tilesClicked == rows*columns - minesCount) {
-    alert("You Win")
+    title.innerText = "Congradulations! You WIN!"
     gameOver=true
     endGame()
    }

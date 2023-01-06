@@ -6,6 +6,7 @@ body {
     font-weight: bold;
     flex-direction: column;
     align-content: space-between;
+    background-color: rgb(77, 77, 77);
     
 }
 #restart {
@@ -20,7 +21,16 @@ body {
     background-color:lightgray;
     font-weight: bold;
     border-radius: 40%;
-    /* visibility: hidden; */
+   
+}
+
+#title {
+    border-width: 10px;
+    border-style: solid;
+    border-color: gray;
+    border-radius: 20px;
+    background-color: rgb(182, 182, 182);
+    border-block-width: 10px;
 }
 #board {
     width: 400px;
@@ -34,6 +44,8 @@ body {
     flex-direction: column;
     
 }
+
+
 
 #board div {
     width: 48px;
