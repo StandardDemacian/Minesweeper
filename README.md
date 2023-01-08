@@ -38,8 +38,6 @@ As a User I want...
 
 - to be able to select from 3 difficuties
 
-- to have a timer for how long I have taken to solve the puzzle
-
 - to be able to change from bombs to another theme (pokemon,colors, super-heros)
 
 

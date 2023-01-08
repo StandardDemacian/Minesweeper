@@ -54,7 +54,7 @@ function gameStart () {
         tile.addEventListener("contextmenu", placeFlag)
         tile.addEventListener("click", clickTile) 
         tile.addEventListener("contextmenu", function (e) { //removes that annoying menu while right clicking on the board
-            e.preventDefault();
+            e.preventDefault()
         })
         gameBoard.append(tile)
         row.push(tile)
