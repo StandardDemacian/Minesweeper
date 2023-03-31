@@ -84,7 +84,6 @@ function placeFlag () {
 
     let tile = this
     tile.innerHTML = `<i class="fa-solid fa-flag"></i>`
-    tile.style.backgroundColor = "blue"
     tile.classList.add("tile-flagged")
     tile.classList.add("tile-clicked")
 
@@ -93,8 +92,12 @@ function placeFlag () {
 
 function clickTile () {
     let tile = this
-    if (tile.classList.contains("tile-flagged"))
-    {return}
+    if (tile.classList.contains("tile-flagged")){ 
+        tile.innerHTML = ''
+        tile.classList.remove("tile-flagged")
+        tile.classList.remove("tile-clicked")
+        return 
+}
         
     if(minesLocation.includes(tile.id)) {
         title.innerText = "Kaboom! You've lost!"
